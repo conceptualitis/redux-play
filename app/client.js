@@ -1,8 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Test from './components/test';
+import { render } from 'react-dom';
+import { Router, Route, browserHistory } from 'react-router';
+import TeamList from './components/team-list';
 
-ReactDOM.render(
-    <Test/>,
-    document.getElementById('app')
-  );
+render((
+    // <TeamList/>
+    <Router history={browserHistory}>
+      <Route path="/" component={TeamList} />
+    </Router>
+  ),
+  document.getElementById('app')
+);

@@ -1,30 +1,28 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import CrimeItem from './crime-item';
+import { fetchCrimes } from '../actions';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      crimes: []
-    };
-  },
-
+const CrimeList = React.createClass({
   componentDidMount() {
-    fetch('http://nflarrest.com/api/v1/crime')
-      .then(response => response.json())
-      .then(crimes => this.setState({ crimes }));
+    this.props.fetchCrimes();
   },
 
   teamList() {
-    if (this.state.crimes.length <= 0) {
+    if (this.props.crimes.length <= 0) {
       return <strong>Loading crimes&hellip;</strong>;
     } else {
-      return this.state.crimes.map(crime => {
-        return <CrimeItem key={crime.Category} name={crime.Category} totalArrests={parseInt(crime.arrest_count, 10)} />;
+      return this.props.crimes.map(crime => {
+        return <CrimeItem key={crime.Category}
+                          name={crime.Category}
+                          totalArrests={parseInt(crime.arrest_count, 10)} />;
       });
     }
   },
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <h1>Popular NFL crimes</h1>
@@ -33,3 +31,8 @@ export default React.createClass({
     );
   }
 });
+
+export default connect(
+  state => ({ crimes: state.default.crimes }),
+  dispatch => bindActionCreators({ fetchCrimes }, dispatch)
+)(CrimeList);

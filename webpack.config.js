@@ -1,16 +1,22 @@
+var path = require('path');
+var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  context: __dirname + '/app',
+  devtool: 'eval',
 
-  entry: {
-    js: './client.js',
-    html: './index.html'
-  },
+  // context: path.join(__dirname, 'app'),
+
+  entry: [
+    'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    './app/client.js',
+    './app/index.html'
+  ],
 
   output: {
-    filename: "app.js",
-    path: __dirname + "/dist",
+    filename: 'app.js',
+    path: path.join(__dirname, 'dist')
   },
 
   module: {
@@ -18,10 +24,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015']
-        }
+        loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015']
       },
       {
         test: /\.css$/,
@@ -33,7 +36,9 @@ module.exports = {
       }
     ]
   },
+
   plugins: [
-    new ExtractTextPlugin('app.css')
+    new ExtractTextPlugin('app.css'),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

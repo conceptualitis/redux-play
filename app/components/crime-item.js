@@ -10,8 +10,9 @@ export default React.createClass({
   render() {
     return (
       <li>
-        <Link to={`/teams/${this.props.name}`}>Go!</Link>
-        {this.props.name}
+        <Link to={`/crimes/${this.props.name}`}>
+          {this.props.name} ({this.props.totalArrests})
+        </Link>
       </li>
     );
   }

@@ -6,11 +6,13 @@ import { fetchCrimes } from '../actions';
 
 const CrimeListPage = React.createClass({
   componentDidMount() {
-    this.props.fetchCrimes();
+    if (!this.props.crimes.length) {
+      this.props.fetchCrimes();
+    }
   },
 
   teamList() {
-    if (this.props.crimes.length <= 0) {
+    if (!this.props.crimes.length) {
       return <strong>Loading crimes&hellip;</strong>;
     } else {
       return this.props.crimes.map(crime => {
@@ -32,6 +34,6 @@ const CrimeListPage = React.createClass({
 });
 
 export default connect(
-  state => ({ crimes: state.default.crimes }),
+  state => ({ crimes: state.crimes.data }),
   dispatch => bindActionCreators({ fetchCrimes }, dispatch)
 )(CrimeListPage);

@@ -52,8 +52,8 @@ const CrimePage = React.createClass({
 
 export default connect(
   state => ({
-    editingArrest: state.default.editingArrest,
-    arrests: state.default.arrests
+    editingArrest: state.arrests.editingArrest,
+    arrests: state.arrests.data
   }),
   dispatch => bindActionCreators({ fetchArrests, editArrest, updateArrest }, dispatch)
 )(CrimePage);

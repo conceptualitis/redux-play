@@ -1,28 +1,19 @@
+// React will be needed after the JSX is compiled
 import React from 'react';
+// great rendering is its own lib now, yaaay
 import { render } from 'react-dom';
+// react router stuff
 import { Router, Route, browserHistory } from 'react-router';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+// gives `connect` calls later access to our store: https://github.com/reactjs/react-redux/blob/master/docs/api.md#provider-store
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
+// connects react router's history api to the redux store
+import { syncHistoryWithStore } from 'react-router-redux';
 import CrimeList from './components/crime-list-page';
 import CrimePage from './components/crime-page';
-import * as reducers from './reducers';
-
+import store from './store';
 import foundation from './styles/vendors/foundation.css';
 
-const store = createStore(
-  combineReducers({
-    ...reducers,
-    routing: routerReducer
-  }),
-  compose(
-    applyMiddleware(thunkMiddleware, createLogger()),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
-);
-
+// wire them together
 const history = syncHistoryWithStore(browserHistory, store);
 
 render((

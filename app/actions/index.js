@@ -1,4 +1,4 @@
-import { FETCHCRIMES, RECEIVECRIMES, FETCHARRESTS, RECEIVEARRESTS } from '../constants';
+import { FETCHCRIMES, RECEIVECRIMES, FETCHARRESTS, RECEIVEARRESTS, EDITARREST, UPDATEARREST } from '../constants';
 
 export function fetchCrimes() {
   return function(dispatch) {
@@ -30,5 +30,20 @@ export function receiveArrests(arrests) {
     type: RECEIVEARRESTS,
     arrests,
     receivedAt: Date.now()
+  }
+};
+
+export function editArrest(id) {
+  return {
+    type: EDITARREST,
+    id
+  }
+};
+
+export function updateArrest(id, description) {
+  return {
+    type: UPDATEARREST,
+    id,
+    description
   }
 };

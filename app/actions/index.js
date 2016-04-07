@@ -11,22 +11,24 @@ export function fetchCrimes() {
 export function receiveCrimes(crimes) {
   return {
     type: RECEIVECRIMES,
-    crimes: crimes,
+    crimes,
     receivedAt: Date.now()
   }
 };
 
 
-export function fetchArrests() {
-  return {
-    type: FETCHARRESTS
+export function fetchArrests(id) {
+  return function(dispatch) {
+    return fetch(`http://nflarrest.com/api/v1/crime/arrests/${id}`)
+      .then(response => response.json())
+      .then(arrests => dispatch(receiveArrests(arrests)));
   }
 };
 
-export function receiveArrests() {
+export function receiveArrests(arrests) {
   return {
     type: RECEIVEARRESTS,
-    arrests: json.data.children.map(child => child.data),
+    arrests,
     receivedAt: Date.now()
   }
 };

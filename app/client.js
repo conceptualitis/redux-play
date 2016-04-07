@@ -1,12 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import CrimeList from './components/crime-list';
+import CrimeList from './components/crime-list-page';
 import CrimePage from './components/crime-page';
 import * as reducers from './reducers';
 
@@ -17,7 +17,10 @@ const store = createStore(
     ...reducers,
     routing: routerReducer
   }),
-  applyMiddleware(thunkMiddleware, createLogger())
+  compose(
+    applyMiddleware(thunkMiddleware, createLogger()),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
 );
 
 const history = syncHistoryWithStore(browserHistory, store);

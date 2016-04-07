@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default React.createClass({
-  propTypes: {
-    name: React.PropTypes.string.isRequired,
-    totalArrests: React.PropTypes.number.isRequired
-  },
+const CrimeItem = ({ name, totalArrests }) => (
+  <li>
+    <Link to={`/crimes/${name}`}>
+      {name} ({totalArrests})
+    </Link>
+  </li>
+);
 
-  render() {
-    return (
-      <li>
-        <Link to={`/crimes/${this.props.name}`}>
-          {this.props.name} ({this.props.totalArrests})
-        </Link>
-      </li>
-    );
-  }
-});
+CrimeItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  totalArrests: PropTypes.number.isRequired
+};
+
+export default CrimeItem;

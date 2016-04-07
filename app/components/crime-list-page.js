@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CrimeItem from './crime-item';
 import { fetchCrimes } from '../actions';
 
-const CrimeList = React.createClass({
+const CrimeListPage = React.createClass({
   componentDidMount() {
     this.props.fetchCrimes();
   },
@@ -22,11 +22,10 @@ const CrimeList = React.createClass({
   },
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <h1>Popular NFL crimes</h1>
-        {this.teamList()}
+        { this.teamList() }
       </div>
     );
   }
@@ -35,4 +34,4 @@ const CrimeList = React.createClass({
 export default connect(
   state => ({ crimes: state.default.crimes }),
   dispatch => bindActionCreators({ fetchCrimes }, dispatch)
-)(CrimeList);
+)(CrimeListPage);

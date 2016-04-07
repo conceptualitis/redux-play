@@ -4,10 +4,7 @@
   "description": "Playing with redux",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/webpack",
-    "dev": "./node_modules/.bin/webpack-dev-server"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
